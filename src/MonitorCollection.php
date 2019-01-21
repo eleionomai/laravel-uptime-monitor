@@ -40,7 +40,7 @@ class MonitorCollection extends Collection
     protected function getPromises(): Generator
     {
         $client = GuzzleFactory::make(
-            [],
+            ['cookies' => true],
             config('uptime-monitor.uptime-check.retry_connection_after_milliseconds', 100)
         );
 
