@@ -105,6 +105,11 @@ return [
          * When reaching out to the sites these headers will be added.
          */
         'additional_headers' => [],
+
+        /*
+         * Set default options for the Guzzle client.
+         */
+        'client_options' => [],
     ],
 
     'certificate_check' => [
