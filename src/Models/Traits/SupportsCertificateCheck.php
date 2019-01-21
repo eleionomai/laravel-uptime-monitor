@@ -19,6 +19,7 @@ trait SupportsCertificateCheck
             $certificate = (new Downloader)
                 ->setTimeout(30)
                 ->usingPort($this->url->getPort() ?? 443)
+                ->withVerifyPeer(false)
                 ->forHost($this->url->getHost());
 
             $this->setCertificate($certificate);
