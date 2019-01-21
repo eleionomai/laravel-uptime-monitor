@@ -3,6 +3,7 @@
 namespace Spatie\UptimeMonitor\Models\Traits;
 
 use Exception;
+use Spatie\SslCertificate\Downloader;
 use Spatie\UptimeMonitor\Models\Monitor;
 use Spatie\SslCertificate\SslCertificate;
 use Spatie\UptimeMonitor\Events\CertificateCheckFailed;
@@ -15,7 +16,10 @@ trait SupportsCertificateCheck
     public function checkCertificate()
     {
         try {
-            $certificate = SslCertificate::createForHostName($this->url->getHost());
+            $certificate = (new Downloader)
+                ->setTimeout(30)
+                ->usingPort($this->url->getPort() ?? 443)
+                ->forHost($this->url->getHost());
 
             $this->setCertificate($certificate);
         } catch (Exception $exception) {
